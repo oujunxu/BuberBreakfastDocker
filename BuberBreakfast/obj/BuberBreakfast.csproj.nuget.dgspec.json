@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj": {}
+    "C:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj": {}
   },
   "projects": {
-    "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj": {
+    "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj",
+        "projectUniqueName": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj",
         "projectName": "BuberBreakfast.Contracts",
-        "projectPath": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj",
-        "packagesPath": "C:\\Users\\ander\\.nuget\\packages\\",
-        "outputPath": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\obj\\",
+        "projectPath": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj",
+        "packagesPath": "C:\\Users\\Anders Xu\\.nuget\\packages\\",
+        "outputPath": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "G:\\Program x86\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ander\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Anders Xu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,21 +59,17 @@
         }
       }
     },
-    "E:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj": {
+    "C:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj",
+        "projectUniqueName": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj",
         "projectName": "BuberBreakfast",
-        "projectPath": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj",
-        "packagesPath": "C:\\Users\\ander\\.nuget\\packages\\",
-        "outputPath": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast\\obj\\",
+        "projectPath": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast\\BuberBreakfast.csproj",
+        "packagesPath": "C:\\Users\\Anders Xu\\.nuget\\packages\\",
+        "outputPath": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "G:\\Program x86\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ander\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Anders Xu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,8 +83,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj": {
-                "projectPath": "E:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj"
+              "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj": {
+                "projectPath": "C:\\Workspace\\BuberBreakfast\\BuberBreakfast.Contracts\\BuberBreakfast.Contracts.csproj"
               }
             }
           }

@@ -9,5 +9,4 @@ public record BreakfastResponse
     DateTime EndDateTime,
     DateTime LastModifiedDateTime,
     List<string> Savory,
-    List<string> Sweet
-    );
+    List<string> Sweet);
