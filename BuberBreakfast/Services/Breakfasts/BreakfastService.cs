@@ -5,8 +5,12 @@ namespace BuberBreakfast.Services.Breakfasts;
 public class BuberBreakfastService: IBreakfastService{
     private readonly Dictionary<Guid, Breakfast> _breakfasts = new();
 
-    public void Breakfast(Breakfast breakfast){
+    public void CreateBreakfast(Breakfast breakfast){
         _breakfasts.Add(breakfast.Id, breakfast);
+    }
+
+    public Breakfast GetBreakfast(Guid id){
+        return _breakfasts[id];
     }
 }
 
