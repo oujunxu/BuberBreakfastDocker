@@ -1,16 +1,34 @@
+using System.Data;
 using BuberBreakfast.Models;
+using BuberBreakfast.ServiceErrors;
+using ErrorOr;
 
 namespace BuberBreakfast.Services.Breakfasts;
 
-public class BuberBreakfastService: IBreakfastService{
-    private readonly Dictionary<Guid, Breakfast> _breakfasts = new();
+public class BreakfastService: IBreakfastService{
+    private static readonly Dictionary<Guid, Breakfast> _breakfasts = new(); //when using database change this to a context
 
-    public void CreateBreakfast(Breakfast breakfast){
+    public ErrorOr<Created> CreateBreakfast(Breakfast breakfast){
         _breakfasts.Add(breakfast.Id, breakfast);
+        return Result.Created;
     }
 
-    public Breakfast GetBreakfast(Guid id){
-        return _breakfasts[id];
+    public ErrorOr<Breakfast> GetBreakfast(Guid id){
+        if(_breakfasts.TryGetValue(id, out var breakfast)){
+            return breakfast;
+        }
+        return Errors.Breakfast.NotFound;
+    }
+
+    public ErrorOr<UpsertedBreakfast> UpsertBreakfast(Breakfast breakfast){
+        var isNewlyCreated = !_breakfasts.ContainsKey(breakfast.Id);
+        _breakfasts[breakfast.Id] = breakfast;
+        return new UpsertedBreakfast(isNewlyCreated);
+    }
+
+    public ErrorOr<Deleted> DeletedBreakfast(Guid id){
+        _breakfasts.Remove(id);
+        return Result.Deleted;
     }
 }
 
