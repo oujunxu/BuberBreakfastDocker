@@ -1,0 +1,23 @@
+version: '3.8'
+services: 
+  api:
+    build: 
+      dockerfile: ./BuberBreakfast/Dockerfile
+      context: .
+    depends_on:
+      - mysql
+    environment:
+      PORT: 5276
+      ASPNETCORE_ENVIRONMENT: "Development"
+    ports:
+      - "8000:80"
+  
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: secret123
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: secret
+    ports:
+      - "8080:3306"
