@@ -3,16 +3,20 @@ using BuberBreakfast.Models;
 using BuberBreakfast.Services.Breakfasts;
 using Microsoft.AspNetCore.Mvc;
 using ErrorOr;
+using BuberBreakfast.Context;
+using BuberBreakfast.Entities;
 
 namespace BuberBreakfast.Controllers;
 
 public class BreakfastsController : ApiController
 {
     private readonly IBreakfastService _breakfastService;
+    private BreakfastContext _context;
 
-    public BreakfastsController(IBreakfastService breakfastService)
+    public BreakfastsController(IBreakfastService breakfastService, BreakfastContext context)
     {
         _breakfastService = breakfastService;
+        _context = context;
     }
 
     [HttpPost()]
@@ -36,6 +40,16 @@ public class BreakfastsController : ApiController
 
         ErrorOr<Created> createBreakfastResult = _breakfastService.CreateBreakfast(breakfast);
 
+        _context.Breakfasts.Add(new BreakfastEntity(){
+            Id = breakfast.Id,
+            Name = breakfast.Name,
+            Description = breakfast.Description,
+            StartDateTime = breakfast.StartDateTime,
+            EndDateTime = breakfast.EndDateTime
+        });
+
+        _context.SaveChanges();
+
         return createBreakfastResult.Match(
             created => CreatedAt(breakfast),
             errors => Problem(errors));     
@@ -46,6 +60,8 @@ public class BreakfastsController : ApiController
     {
 
         ErrorOr<Breakfast> getBreakfastResult = _breakfastService.GetBreakfast(id);
+
+        _context.Breakfasts.Find(id);
 
         return getBreakfastResult.Match(
             breakfast => Ok(MapBreakfastResponse(breakfast)),
@@ -66,6 +82,16 @@ public class BreakfastsController : ApiController
         var breakfast = requestToBreakfastResult.Value;
         ErrorOr<UpsertedBreakfast> upsertBreakfastResult = _breakfastService.UpsertBreakfast(breakfast);
 
+        _context.Breakfasts.Update(new BreakfastEntity(){
+            Id = breakfast.Id,
+            Name = breakfast.Name,
+            Description = breakfast.Description,
+            StartDateTime = breakfast.StartDateTime,
+            EndDateTime = breakfast.EndDateTime
+        });
+
+        _context.SaveChanges();
+
         return upsertBreakfastResult.Match(
             upserted => upserted.IsNewlyCreated ? CreatedAt(breakfast) : NoContent(),
             errors => Problem(errors));
@@ -75,6 +101,11 @@ public class BreakfastsController : ApiController
     public IActionResult DeleteBreakfast(Guid id)
     {
         ErrorOr<Deleted> deletedResult = _breakfastService.DeletedBreakfast(id);
+        var breakfast = _context.Breakfasts.Find(id);
+
+        if(breakfast is not null){
+            _context.Breakfasts.Remove(breakfast);
+        }
 
         return deletedResult.Match(
             deleted => NoContent(),
