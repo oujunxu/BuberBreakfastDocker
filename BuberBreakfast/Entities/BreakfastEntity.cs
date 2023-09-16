@@ -8,14 +8,12 @@ namespace BuberBreakfast.Entities
 {
     public class BreakfastEntity
     {
-        public Guid? Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Guid Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        [NotMapped]
-        public List<string> Savory { get; set; }
-        [NotMapped]
-        public List<string> Sweet { get; set; }
+        public string? Savory { get; set; }
+        public string? Sweet { get; set; }
     }
 }

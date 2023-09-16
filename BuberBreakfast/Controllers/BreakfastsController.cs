@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ErrorOr;
 using BuberBreakfast.Context;
 using BuberBreakfast.Entities;
+using Azure.Core.Serialization;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace BuberBreakfast.Controllers;
 
@@ -40,33 +43,20 @@ public class BreakfastsController : ApiController
 
         ErrorOr<Created> createBreakfastResult = _breakfastService.CreateBreakfast(breakfast);
 
-        _context.Breakfasts.Add(new BreakfastEntity(){
-            Id = breakfast.Id,
-            Name = breakfast.Name,
-            Description = breakfast.Description,
-            StartDateTime = breakfast.StartDateTime,
-            EndDateTime = breakfast.EndDateTime
-        });
-
-        _context.SaveChanges();
-
         return createBreakfastResult.Match(
             created => CreatedAt(breakfast),
             errors => Problem(errors));     
     }
 
     [HttpGet("{id:guid}")]
-    public IActionResult GetBreakfast(Guid id)
+    public JsonResult GetBreakfast(Guid id)
     {
 
         ErrorOr<Breakfast> getBreakfastResult = _breakfastService.GetBreakfast(id);
 
-        _context.Breakfasts.Find(id);
+        var breakfast = _context.Breakfasts.Find(id);
 
-        return getBreakfastResult.Match(
-            breakfast => Ok(MapBreakfastResponse(breakfast)),
-            errors => Problem(errors)
-        );
+        return new JsonResult(breakfast);
     }
 
     [HttpPut("{id:guid}")]
