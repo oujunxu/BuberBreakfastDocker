@@ -14,5 +14,16 @@ namespace BuberBreakfast.Context
         public BreakfastContext(DbContextOptions<BreakfastContext> options): base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BreakfastEntity>()
+                .Property(e => e.Savory)
+                .HasColumnType("json");
+
+            modelBuilder.Entity<BreakfastEntity>()
+                .Property(e => e.Sweet)
+                .HasColumnType("json");
+        }
     }
 }

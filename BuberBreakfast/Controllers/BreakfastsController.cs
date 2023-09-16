@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ErrorOr;
 using BuberBreakfast.Context;
 using BuberBreakfast.Entities;
+using Azure.Core.Serialization;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace BuberBreakfast.Controllers;
 
@@ -40,16 +43,6 @@ public class BreakfastsController : ApiController
 
         ErrorOr<Created> createBreakfastResult = _breakfastService.CreateBreakfast(breakfast);
 
-        _context.Breakfasts.Add(new BreakfastEntity(){
-            Id = breakfast.Id,
-            Name = breakfast.Name,
-            Description = breakfast.Description,
-            StartDateTime = breakfast.StartDateTime,
-            EndDateTime = breakfast.EndDateTime
-        });
-
-        _context.SaveChanges();
-
         return createBreakfastResult.Match(
             created => CreatedAt(breakfast),
             errors => Problem(errors));     
@@ -58,15 +51,11 @@ public class BreakfastsController : ApiController
     [HttpGet("{id:guid}")]
     public IActionResult GetBreakfast(Guid id)
     {
-
         ErrorOr<Breakfast> getBreakfastResult = _breakfastService.GetBreakfast(id);
-
-        _context.Breakfasts.Find(id);
 
         return getBreakfastResult.Match(
             breakfast => Ok(MapBreakfastResponse(breakfast)),
-            errors => Problem(errors)
-        );
+            errors => Problem(errors));
     }
 
     [HttpPut("{id:guid}")]
@@ -80,20 +69,10 @@ public class BreakfastsController : ApiController
         }
 
         var breakfast = requestToBreakfastResult.Value;
-        ErrorOr<UpsertedBreakfast> upsertBreakfastResult = _breakfastService.UpsertBreakfast(breakfast);
-
-        _context.Breakfasts.Update(new BreakfastEntity(){
-            Id = breakfast.Id,
-            Name = breakfast.Name,
-            Description = breakfast.Description,
-            StartDateTime = breakfast.StartDateTime,
-            EndDateTime = breakfast.EndDateTime
-        });
-
-        _context.SaveChanges();
+        ErrorOr<Updated> upsertBreakfastResult = _breakfastService.UpsertBreakfast(breakfast);
 
         return upsertBreakfastResult.Match(
-            upserted => upserted.IsNewlyCreated ? CreatedAt(breakfast) : NoContent(),
+            updated => CreatedAt(breakfast),
             errors => Problem(errors));
     }
 
