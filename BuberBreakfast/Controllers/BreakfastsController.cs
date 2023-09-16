@@ -49,14 +49,13 @@ public class BreakfastsController : ApiController
     }
 
     [HttpGet("{id:guid}")]
-    public JsonResult GetBreakfast(Guid id)
+    public IActionResult GetBreakfast(Guid id)
     {
-
         ErrorOr<Breakfast> getBreakfastResult = _breakfastService.GetBreakfast(id);
 
-        var breakfast = _context.Breakfasts.Find(id);
-
-        return new JsonResult(breakfast);
+        return getBreakfastResult.Match(
+            breakfast => Ok(MapBreakfastResponse(breakfast)),
+            errors => Problem(errors));
     }
 
     [HttpPut("{id:guid}")]
@@ -70,20 +69,10 @@ public class BreakfastsController : ApiController
         }
 
         var breakfast = requestToBreakfastResult.Value;
-        ErrorOr<UpsertedBreakfast> upsertBreakfastResult = _breakfastService.UpsertBreakfast(breakfast);
-
-        _context.Breakfasts.Update(new BreakfastEntity(){
-            Id = breakfast.Id,
-            Name = breakfast.Name,
-            Description = breakfast.Description,
-            StartDateTime = breakfast.StartDateTime,
-            EndDateTime = breakfast.EndDateTime
-        });
-
-        _context.SaveChanges();
+        ErrorOr<Updated> upsertBreakfastResult = _breakfastService.UpsertBreakfast(breakfast);
 
         return upsertBreakfastResult.Match(
-            upserted => upserted.IsNewlyCreated ? CreatedAt(breakfast) : NoContent(),
+            updated => CreatedAt(breakfast),
             errors => Problem(errors));
     }
 

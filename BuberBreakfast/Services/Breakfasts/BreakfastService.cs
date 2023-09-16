@@ -17,7 +17,7 @@ public class BreakfastService: IBreakfastService{
     }
     public ErrorOr<Created> CreateBreakfast(Breakfast breakfast){
         _context.Breakfasts.Add(new BreakfastEntity(){
-            Id = breakfast.Id,
+            Id = new Guid(),
             Name = breakfast.Name,
             Description = breakfast.Description,
             StartDateTime = breakfast.StartDateTime,
@@ -46,15 +46,24 @@ public class BreakfastService: IBreakfastService{
         return Errors.Breakfast.NotFound;
     }
 
-    public ErrorOr<UpsertedBreakfast> UpsertBreakfast(Breakfast breakfast){
-        bool isNewlyCreated;
-        _context.Breakfasts.Find(breakfast.Id) == null ?  isNewlyCreated = false : isNewlyCreated = true;
-        _breakfasts[breakfast.Id] = breakfast;
-        return new UpsertedBreakfast(isNewlyCreated);
+    public ErrorOr<Updated> UpsertBreakfast(Breakfast breakfast){
+        _context.Breakfasts.Update(new BreakfastEntity(){
+            Id = breakfast.Id,
+            Name = breakfast.Name,
+            Description = breakfast.Description,
+            StartDateTime = breakfast.StartDateTime,
+            EndDateTime = breakfast.EndDateTime,
+            Sweet = JsonSerializer.Serialize(breakfast.Sweet),
+            Savory = JsonSerializer.Serialize(breakfast.Savory)
+        });
+        _context.SaveChanges();
+        return Result.Updated;
     }
 
     public ErrorOr<Deleted> DeletedBreakfast(Guid id){
-        _breakfasts.Remove(id);
+        var _breakfast = _context.Breakfasts.Find(id);
+        _context.Breakfasts.Remove(_breakfast);
+        _context.SaveChanges();
         return Result.Deleted;
     }
 }
