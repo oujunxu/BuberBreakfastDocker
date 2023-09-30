@@ -1,4 +1,4 @@
-namespace BuberBreakfast.Contracts.Breafast;
+namespace BuberBreakfast.Contracts;
 
 public record BreakfastResponse
 (

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BuberBreakfast.Contracts.Breafast;
+using BuberBreakfast.Contracts;
 using BuberBreakfast.Models;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;

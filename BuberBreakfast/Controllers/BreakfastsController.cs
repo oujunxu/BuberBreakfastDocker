@@ -1,13 +1,9 @@
-using BuberBreakfast.Contracts.Breafast;
+using BuberBreakfast.Contracts;
 using BuberBreakfast.Models;
 using BuberBreakfast.Services.Breakfasts;
 using Microsoft.AspNetCore.Mvc;
 using ErrorOr;
 using BuberBreakfast.Context;
-using BuberBreakfast.Entities;
-using Azure.Core.Serialization;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 
 namespace BuberBreakfast.Controllers;
 

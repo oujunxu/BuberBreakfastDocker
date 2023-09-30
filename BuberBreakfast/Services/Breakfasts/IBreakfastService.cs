@@ -1,4 +1,4 @@
-using BuberBreakfast.Contracts.Breafast;
+using BuberBreakfast.Contracts;
 using BuberBreakfast.Models;
 using ErrorOr;
 
